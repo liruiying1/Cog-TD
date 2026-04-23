@@ -90,7 +90,7 @@ HSI = image.contiguous().view(L, nr1, nc1, T).float()
 #print(E.shape,"E") torch.Size([173, 3, 6])
 A_true = torch.from_numpy(mat_contents1['A']) 
 de_ini = sio.loadmat('.../VCA-synth_ex1.mat')
-E = torch.from_numpy(de_ini['Mn_hat_VRNN'][:,:,0,:]).squeeze()#(173, 3, 6)
+E = torch.from_numpy(de_ini['vca_ini'][:,:,0,:]).squeeze()#(173, 3, 6)
 ini_1 = E[:,:,0]
 ini_2 = E[:,:,1]
 ini_3 = E[:,:,2]

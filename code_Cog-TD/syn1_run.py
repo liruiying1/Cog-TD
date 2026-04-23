@@ -20,12 +20,12 @@ nr1 = 50
 nc1 = 50
 T = 6
 
-data1 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/1syn180_1.mat')
-data2 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/2syn180_1.mat')
-data3 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/3syn180_1.mat')
-data4 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/4syn180_1.mat')
-data5 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/5syn180_1.mat')
-data6 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/6syn180_1.mat')
+data1 = sio.loadmat('.../single/syn1/t1.mat')
+data2 = sio.loadmat('.../single/syn1/t2.mat')
+data3 = sio.loadmat('.../single/syn1/t3.mat')
+data4 = sio.loadmat('.../single/syn1/t4.mat')
+data5 = sio.loadmat('.../single/syn1/t5.mat')
+data6 = sio.loadmat('.../single/syn1/t6.mat')
 
 abu0 = torch.from_numpy(data1['abu_est']).float()
 abu1 = torch.from_numpy(data2['abu_est']).float()
@@ -77,19 +77,19 @@ class NonZeroClipper(object):
             w = module.weight.data
             w.clamp_(1e-6, 1)
 
-pdf = loadmat('/home/home_node6_1/lry/MTHU/202503copula/code_Cog-TD/syn1_copula.mat')
+pdf = loadmat('.../code_Cog-TD/syn1_copula.mat')
 joint_pdf = torch.from_numpy(pdf['joint_PDF'])
 
 #sample = loadmat('/home/home_node6_1/lry/MTHU/202503copula/result/copula_0422/tahoe_sample.mat')
 #real_sample = torch.from_numpy(sample['sample'])
 
-mat_contents1 = loadmat('/home/home_node6_1/lry/MTHU/dataset/synth_dataset_ex1.mat')
+mat_contents1 = loadmat('.../dataset/synth_dataset_ex1.mat')
 image = torch.from_numpy(mat_contents1['Y']) #[224,50,50,6]
 HSI = image.contiguous().view(L, nr1, nc1, T).float()
 #E = End_deal(HSI)
 #print(E.shape,"E") torch.Size([173, 3, 6])
 A_true = torch.from_numpy(mat_contents1['A']) 
-de_ini = sio.loadmat('/home/home_node6_1/lry/MTHU/202503copula/result/ReDSUNN-synth_ex1.mat')
+de_ini = sio.loadmat('.../VCA-synth_ex1.mat')
 E = torch.from_numpy(de_ini['Mn_hat_VRNN'][:,:,0,:]).squeeze()#(173, 3, 6)
 ini_1 = E[:,:,0]
 ini_2 = E[:,:,1]
@@ -425,12 +425,12 @@ def train(HSI):
                     plt.imshow(abu_true[i,:,:].detach().numpy())
 
                 plt.show()
-                plt.savefig('/home/home_node6_1/lry/MTHU/202503copula/result/20260129/syn1'+'epoch'+str(epoch+1)+'time'+ str(t) +str(i)+"A.jpg")
+                plt.savefig('.../syn1'+'epoch'+str(epoch+1)+'time'+ str(t) +str(i)+"A.jpg")
         
         '''if (epoch + 1) % 200 == 0:
-            torch.save(encoder.state_dict(), f'/home/home_node6_1/lry/MTHU/202503copula/result/AAE/encoder_epoch_{epoch+1}.pth')
-            torch.save(decoder.state_dict(), f'/home/home_node6_1/lry/MTHU/202503copula/result/AAE/decoder_epoch_{epoch+1}.pth')
-            torch.save(discriminator.state_dict(), f'/home/home_node6_1/lry/MTHU/202503copula/result/AAE/discriminator_epoch_{epoch+1}.pth')'''
+            torch.save(encoder.state_dict(), f'.../encoder_epoch_{epoch+1}.pth')
+            torch.save(decoder.state_dict(), f'.../decoder_epoch_{epoch+1}.pth')
+            torch.save(discriminator.state_dict(), f'.../discriminator_epoch_{epoch+1}.pth')'''
     time_end = time.time()
     total_time = time_end - time_start
     print('The training lasts for {} seconds'.format(total_time))
@@ -476,7 +476,7 @@ if __name__ == "__main__":
     
     
 
-    matpath = '/home/home_node6_1/lry/MTHU/202503copula/result/20260129/syn1.mat'
+    matpath = '.../syn1.mat'
     sio.savemat(matpath, \
                     {'A_hat' : A_hat.cpu().detach().numpy(),
                     'Mn_hat' : endmembers.cpu().detach().numpy(),

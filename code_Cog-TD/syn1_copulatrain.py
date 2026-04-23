@@ -19,12 +19,12 @@ nr1 = 50
 nc1 = 50
 T = 6
 
-data1 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/1syn180_1.mat')
-data2 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/2syn180_1.mat')
-data3 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/3syn180_1.mat')
-data4 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/4syn180_1.mat')
-data5 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/5syn180_1.mat')
-data6 = sio.loadmat('/home/home_node6_1/lry/MTHU/20241115resnet/result/single/syn1/6syn180_1.mat')
+data1 = sio.loadmat('...single/syn1/t1.mat')
+data2 = sio.loadmat('...single/syn1/t2.mat')
+data3 = sio.loadmat('...single/syn1/t3.mat')
+data4 = sio.loadmat('...single/syn1/t4.mat')
+data5 = sio.loadmat('...single/syn1/t5.mat')
+data6 = sio.loadmat('...single/syn1/t6.mat')
 
 abu0 = torch.from_numpy(data1['abu_est']).float()
 abu1 = torch.from_numpy(data2['abu_est']).float()
@@ -179,7 +179,7 @@ if __name__ == '__main__':
     t_elapsed = time.time() - t_start # measure elapsed time
 
     
-    matpath = '/home/home_node6_1/lry/MTHU/202503copula/code_Cog-TD/syn1_copula.mat'
+    matpath = '.../code_Cog-TD/syn1_copula.mat'
     sio.savemat(matpath, \
                  {
                   'marginal_CDF': m_CDF_c.cpu().detach().numpy(),
